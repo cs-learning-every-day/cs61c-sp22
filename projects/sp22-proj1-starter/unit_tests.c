@@ -98,32 +98,67 @@ bool assert_state_equals(game_state_t* expected, game_state_t* actual) {
 }
 
 bool test_is_tail() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_is_tail doesn't have any tests.");
+  if (!assert_true("w is part of tail", is_tail('w'))) {
+    return false;
+  }
+  if (!assert_true("a is part of tail", is_tail('a'))) {
+    return false;
+  }
+  if (!assert_true("s is part of tail", is_tail('s'))) {
+    return false;
+  }
+  if (!assert_true("d is part of tail", is_tail('d'))) {
+    return false;
+  }
+  if (!assert_true("c is not part of tail", !is_tail('c'))) {
+    return false;
+  }
   return true;
 }
 
 bool test_is_snake() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_is_snake doesn't have any tests.");
+  if (!assert_true("a is part of snake", is_tail('a'))) {
+    return false;
+  }
+  if (!assert_true("> is part of snake", !is_tail('>'))) {
+    return false;
+  }
   return true;
 }
 
 bool test_body_to_tail() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_body_to_tail doesn't have any tests.");
+  if (!assert_equals_char("> -> d", 'd', body_to_tail('>'))) {
+    return false;
+  }
+  if (!assert_true("< -> a", body_to_tail('<'))) {
+    return false;
+  }
   return true;
 }
 
 bool test_incr_x() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_incr_x doesn't have any tests.");
+  if (!assert_equals_int("should return 1", 1, incr_x('>'))) {
+    return false;
+  }
+  if (!assert_equals_int("should return 0", 0, incr_x('^'))) {
+    return false;
+  }
+  if (!assert_equals_int("should return -1", -1, incr_x('<'))) {
+    return false;
+  }
   return true;
 }
 
 bool test_incr_y() {
-  // TODO: Implement this if you'd like!
-  printf("%s\n", "test_incr_y doesn't have any tests.");
+  if (!assert_equals_int("incr_y v", 1, incr_y('v'))) {
+    return false;
+  }
+  if (!assert_equals_int("incr_y ^", -1, incr_y('^'))) {
+    return false;
+  }
+  if (!assert_equals_int("incr_y <", 0, incr_y('<'))) {
+    return false;
+  }
   return true;
 }
 

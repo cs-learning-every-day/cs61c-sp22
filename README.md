@@ -8,4 +8,4 @@
 ### TODO
 - [X] Lab 0: Intro and Setup
 - [X] Lab 1: C & CGDB
-- [ ] Project 1: snek
+- [X] Project 1: snek
