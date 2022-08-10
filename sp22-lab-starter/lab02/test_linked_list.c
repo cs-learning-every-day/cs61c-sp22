@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
         assert(curr->data == expected_values[i]);
         curr = curr->next;
     }
-    free_list(head);
+    // free_list(head);
 
     printf("Congrats! All of the test cases passed!\n");
     return 0;
