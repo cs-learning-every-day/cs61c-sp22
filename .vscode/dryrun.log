@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/home/ubuntu/.config/.tmp/whatis/cs61c-sp22'
-make: Leaving directory '/home/ubuntu/.config/.tmp/whatis/cs61c-sp22'
+make: Entering directory '/home/tesla/cs/cs61c-sp22'
+make: Leaving directory '/home/tesla/cs/cs61c-sp22'
  
 make: *** No targets specified and no makefile found.  Stop.
 
