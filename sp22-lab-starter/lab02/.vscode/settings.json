@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "files.associations": {
+        "*.js": "javascript",
+        "*.jsx": "javascriptreact",
+        "*.wxss": "css",
+        "*.wxml": "html",
+        "vector.h": "c"
+    }
+}
