@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.js": "javascript",
-        "*.jsx": "javascriptreact",
-        "*.wxss": "css",
-        "*.wxml": "html",
-        "snake_utils.h": "c"
-    }
-}
