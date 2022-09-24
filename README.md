@@ -15,4 +15,4 @@
 - [X] Project 1: snek
 - [X] Lab2: C Memory Management, Valgrind
 - [X] Lab 3: RISC-V Assembly
-- [ ] Project 2: CS61Classify
+- [X] Project 2: CS61Classify
