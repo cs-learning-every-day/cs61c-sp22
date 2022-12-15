@@ -18,7 +18,7 @@
 - [X] Lab 3: RISC-V Assembly
 - [X] Project 2: CS61Classify
 - [X] Lab 4: RISC-V Functions, Pointers
-- [ ] Lab 5: Logisim
+- [X] Lab 5: Logisim
 - [ ] Lab 6: CPU, Pipelining
 - [ ] Lab 7: Caches
 - [ ] Project 3: CS61CPU
