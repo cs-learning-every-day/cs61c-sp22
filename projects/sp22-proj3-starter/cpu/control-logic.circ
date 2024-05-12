@@ -5,8 +5,39 @@
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
       <a name="appear" val="center"/>
-      <a name="fanout" val="4"/>
-      <a name="incoming" val="4"/>
+      <a name="bit1" val="0"/>
+      <a name="bit10" val="0"/>
+      <a name="bit11" val="0"/>
+      <a name="bit12" val="0"/>
+      <a name="bit13" val="0"/>
+      <a name="bit14" val="0"/>
+      <a name="bit15" val="0"/>
+      <a name="bit16" val="1"/>
+      <a name="bit17" val="1"/>
+      <a name="bit18" val="1"/>
+      <a name="bit19" val="1"/>
+      <a name="bit2" val="0"/>
+      <a name="bit20" val="1"/>
+      <a name="bit21" val="1"/>
+      <a name="bit22" val="1"/>
+      <a name="bit23" val="1"/>
+      <a name="bit24" val="1"/>
+      <a name="bit25" val="1"/>
+      <a name="bit26" val="1"/>
+      <a name="bit27" val="1"/>
+      <a name="bit28" val="1"/>
+      <a name="bit29" val="1"/>
+      <a name="bit3" val="0"/>
+      <a name="bit30" val="1"/>
+      <a name="bit31" val="1"/>
+      <a name="bit4" val="0"/>
+      <a name="bit5" val="0"/>
+      <a name="bit6" val="0"/>
+      <a name="bit7" val="0"/>
+      <a name="bit8" val="0"/>
+      <a name="bit9" val="0"/>
+      <a name="facing" val="west"/>
+      <a name="incoming" val="32"/>
     </tool>
     <tool name="Pin">
       <a name="appearance" val="classic"/>
@@ -14,10 +45,10 @@
     </tool>
     <tool name="Probe">
       <a name="appearance" val="classic"/>
-      <a name="radix" val="16"/>
+      <a name="radix" val="10signed"/>
     </tool>
     <tool name="Tunnel">
-      <a name="width" val="2"/>
+      <a name="width" val="32"/>
     </tool>
     <tool name="Pull Resistor">
       <a name="facing" val="north"/>
@@ -26,8 +57,7 @@
       <a name="facing" val="north"/>
     </tool>
     <tool name="Constant">
-      <a name="value" val="0xff"/>
-      <a name="width" val="8"/>
+      <a name="value" val="0x0"/>
     </tool>
   </lib>
   <lib desc="#Gates" name="1"/>
@@ -107,6 +137,9 @@
       <circ-port height="8" pin="200,210" width="8" x="366" y="226"/>
       <circ-port height="8" pin="250,210" width="8" x="416" y="226"/>
     </appear>
+    <comp lib="0" loc="(1010,1120)" name="Tunnel">
+      <a name="label" val="BSel"/>
+    </comp>
     <comp lib="0" loc="(120,210)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
@@ -366,6 +399,16 @@
     <comp lib="0" loc="(690,640)" name="Constant">
       <a name="width" val="2"/>
     </comp>
+    <comp lib="0" loc="(710,1000)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="opcode"/>
+      <a name="labelfont" val="SansSerif bold 10"/>
+      <a name="width" val="7"/>
+    </comp>
+    <comp lib="0" loc="(730,1020)" name="Constant">
+      <a name="value" val="0x13"/>
+      <a name="width" val="7"/>
+    </comp>
     <comp lib="0" loc="(730,210)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
@@ -379,7 +422,6 @@
       <a name="label" val="ALUSel"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="0" loc="(760,510)" name="Constant"/>
     <comp lib="0" loc="(770,550)" name="Constant">
       <a name="width" val="2"/>
     </comp>
@@ -397,9 +439,6 @@
     <comp lib="0" loc="(830,410)" name="Constant">
       <a name="value" val="0x0"/>
       <a name="width" val="3"/>
-    </comp>
-    <comp lib="0" loc="(840,500)" name="Tunnel">
-      <a name="label" val="BSel"/>
     </comp>
     <comp lib="0" loc="(840,550)" name="Tunnel">
       <a name="label" val="WBSel"/>
@@ -437,6 +476,9 @@
       <a name="width" val="7"/>
     </comp>
     <comp lib="3" loc="(640,560)" name="Comparator">
+      <a name="width" val="7"/>
+    </comp>
+    <comp lib="3" loc="(800,1010)" name="Comparator">
       <a name="width" val="7"/>
     </comp>
     <comp lib="5" loc="(114,313)" name="Text">
@@ -549,22 +591,26 @@
     <wire from="(640,230)" to="(650,230)"/>
     <wire from="(640,560)" to="(660,560)"/>
     <wire from="(660,560)" to="(660,690)"/>
-    <wire from="(660,690)" to="(710,690)"/>
+    <wire from="(660,690)" to="(730,690)"/>
     <wire from="(670,210)" to="(670,230)"/>
     <wire from="(690,230)" to="(710,230)"/>
     <wire from="(690,620)" to="(700,620)"/>
     <wire from="(690,640)" to="(700,640)"/>
+    <wire from="(710,1000)" to="(760,1000)"/>
+    <wire from="(730,1020)" to="(760,1020)"/>
     <wire from="(730,210)" to="(730,230)"/>
     <wire from="(750,230)" to="(790,230)"/>
-    <wire from="(760,510)" to="(810,510)"/>
     <wire from="(770,550)" to="(840,550)"/>
+    <wire from="(800,1010)" to="(880,1010)"/>
     <wire from="(810,210)" to="(810,230)"/>
-    <wire from="(810,500)" to="(810,510)"/>
-    <wire from="(810,500)" to="(840,500)"/>
     <wire from="(830,230)" to="(860,230)"/>
     <wire from="(830,410)" to="(870,410)"/>
+    <wire from="(880,1010)" to="(880,1100)"/>
+    <wire from="(880,1100)" to="(910,1100)"/>
     <wire from="(880,210)" to="(880,230)"/>
     <wire from="(900,230)" to="(920,230)"/>
+    <wire from="(910,1100)" to="(910,1120)"/>
+    <wire from="(910,1120)" to="(1010,1120)"/>
     <wire from="(920,150)" to="(920,230)"/>
   </circuit>
 </project>
