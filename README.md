@@ -21,7 +21,7 @@
 - [X] Lab 5: Logisim
 - [X] Lab 6: CPU, Pipelining
 - [ ] Lab 7: Caches
-- [ ] Project 3: CS61CPU
+- [X] Project 3: CS61CPU
 - [ ] Lab 8: SIMD Instructions
 - [ ] Lab 9: Thread-Level Parallelism
 - [ ] Project 4: Numc
