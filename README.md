@@ -22,7 +22,7 @@
 - [X] Lab 6: CPU, Pipelining
 - [X] Lab 7: Caches
 - [X] Project 3: CS61CPU
-- [ ] Lab 8: SIMD Instructions
+- [X] Lab 8: SIMD Instructions
 - [ ] Lab 9: Thread-Level Parallelism
 - [ ] Project 4: Numc
 - [ ] Lab 10: Virtual Memory
