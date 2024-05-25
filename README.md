@@ -20,7 +20,7 @@
 - [X] Lab 4: RISC-V Functions, Pointers
 - [X] Lab 5: Logisim
 - [X] Lab 6: CPU, Pipelining
-- [ ] Lab 7: Caches
+- [X] Lab 7: Caches
 - [X] Project 3: CS61CPU
 - [ ] Lab 8: SIMD Instructions
 - [ ] Lab 9: Thread-Level Parallelism
