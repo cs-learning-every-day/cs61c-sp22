@@ -24,5 +24,5 @@
 - [X] Project 3: CS61CPU
 - [X] Lab 8: SIMD Instructions
 - [X] Lab 9: Thread-Level Parallelism
-- [ ] Project 4: Numc
+- [X] Project 4: Numc
 - [X] Lab 10: Virtual Memory

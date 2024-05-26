@@ -659,7 +659,7 @@ PyMODINIT_FUNC PyInit_numc(void) {
 
     Py_INCREF(&Matrix61cType);
     PyModule_AddObject(m, "Matrix", (PyObject *)&Matrix61cType);
-    printf("CS61C Project 4: numc imported!\n");
+    printf("CS61C Fall 2021 Project 4: numc imported!\n");
     fflush(stdout);
     return m;
 }
