@@ -25,4 +25,4 @@
 - [X] Lab 8: SIMD Instructions
 - [X] Lab 9: Thread-Level Parallelism
 - [ ] Project 4: Numc
-- [ ] Lab 10: Virtual Memory
+- [X] Lab 10: Virtual Memory
