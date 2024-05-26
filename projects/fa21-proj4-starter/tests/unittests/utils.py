@@ -11,6 +11,10 @@ from typing import Union, List
 import operator
 import time
 
+import numpy as np
+
+
+
 """
 Global vars
 """
@@ -98,6 +102,7 @@ Generate a md5 hash by sampling random elements in nc_mat
 def rand_md5(mat: Union[dp.Matrix, nc.Matrix]):
     np.random.seed(1)
     m = hashlib.md5()
+    # rows, cols = mat.shape
     rows, cols = mat.shape
     total_cnt = mat.shape[0] * mat.shape[1]
     if total_cnt < num_samples:

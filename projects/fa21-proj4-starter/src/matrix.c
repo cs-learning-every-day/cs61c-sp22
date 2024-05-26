@@ -26,6 +26,8 @@
  * __m256d _mm256_max_pd (__m256d a, __m256d b)
  */
 
+#define ENABLE_SPEED_UP 1
+
 /* Generates a random double between low and high */
 double rand_double(double low, double high) {
   double range = (high - low);
@@ -196,11 +198,24 @@ int allocate_matrix_ref(matrix **mat, matrix *from, int offset, int rows,
  */
 void fill_matrix(matrix *mat, double val) {
   // Task 1.5 TODO
+#if ENABLE_SPEED_UP
+  __m256d vec = _mm256_set1_pd(val);
+  int cnt = mat->rows * mat->cols / 4 * 4;
+#pragma omp parallel for
+  for (int i = 0; i < cnt; i += 4) {
+    _mm256_storeu_pd(mat->data + i, vec);
+  }
+
+  for (int i = cnt; i < mat->rows * mat->cols; i++) {
+    mat->data[i] = val;
+  }
+#else
   for (int i = 0; i < mat->rows; i++) {
     for (int j = 0; j < mat->cols; j++) {
       set(mat, i, j, val);
     }
   }
+#endif
 }
 
 /*
@@ -210,11 +225,30 @@ void fill_matrix(matrix *mat, double val) {
  */
 int abs_matrix(matrix *result, matrix *mat) {
   // Task 1.5 TODO
+#if ENABLE_SPEED_UP
+  __m256d zero_vec = _mm256_set1_pd(0);
+  int cnt = mat->rows * mat->cols / 4 * 4;
+#pragma omp parallel for
+  for (int i = 0; i < cnt; i += 4) {
+    __m256d m_vec = _mm256_loadu_pd(mat->data + i);
+    __m256d sub_vec = _mm256_sub_pd(zero_vec, m_vec);
+    __m256d abs_vec = _mm256_max_pd(sub_vec, m_vec);
+    _mm256_storeu_pd(result->data + i, abs_vec);
+  }
+
+  for (int i = cnt; i < mat->rows * mat->cols; i++) {
+    double val = mat->data[i];
+    if (val < 0) val = -val;
+    result->data[i] = val;
+  }
+#else
   for (int i = 0; i < mat->rows; i++) {
     for (int j = 0; j < mat->cols; j++) {
       set(result, i, j, abs(get(mat, i, j)));
     }
   }
+#endif
+  return 0;
 }
 
 /*
@@ -225,11 +259,27 @@ int abs_matrix(matrix *result, matrix *mat) {
  */
 int neg_matrix(matrix *result, matrix *mat) {
   // Task 1.5 TODO
+#if ENABLE_SPEED_UP
+  __m256d zero_vec = _mm256_set1_pd(0);
+  int cnt = mat->rows * mat->cols / 4 * 4;
+#pragma omp parallel for
+  for (int i = 0; i < cnt; i += 4) {
+    __m256d m_vec = _mm256_loadu_pd(mat->data + i);
+    __m256d sub_vec = _mm256_sub_pd(zero_vec, m_vec);
+    _mm256_storeu_pd(result->data + i, sub_vec);
+  }
+
+  for (int i = cnt; i < mat->rows * mat->cols; i++) {
+    result->data[i] = -mat->data[i];
+  }
+#else
   for (int i = 0; i < mat->rows; i++) {
     for (int j = 0; j < mat->cols; j++) {
       set(result, i, j, -get(mat, i, j));
     }
   }
+#endif
+  return 0;
 }
 
 /*
@@ -240,11 +290,27 @@ int neg_matrix(matrix *result, matrix *mat) {
  */
 int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
   // Task 1.5 TODO
+#if ENABLE_SPEED_UP
+  int cnt = mat1->rows * mat1->cols / 4 * 4;
+#pragma omp parallel for
+  for (int i = 0; i < cnt; i += 4) {
+    __m256d m1_vec = _mm256_loadu_pd(mat1->data + i);
+    __m256d m2_vec = _mm256_loadu_pd(mat2->data + i);
+    __m256d add_vec = _mm256_add_pd(m1_vec, m2_vec);
+    _mm256_storeu_pd(result->data + i, add_vec);
+  }
+
+  for (int i = cnt; i < result->rows * result->cols; i++) {
+    result->data[i] = mat1->data[i] + mat2->data[i];
+  }
+#else
   for (int i = 0; i < result->rows; i++) {
     for (int j = 0; j < result->cols; j++) {
       set(result, i, j, get(mat1, i, j) + get(mat2, i, j));
     }
   }
+#endif
+  return 0;
 }
 
 /*
@@ -256,11 +322,27 @@ int add_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
   // Task 1.5 TODO
+#if ENABLE_SPEED_UP
+  int cnt = mat1->rows * mat1->cols / 4 * 4;
+#pragma omp parallel for
+  for (int i = 0; i < cnt; i += 4) {
+    __m256d m1_vec = _mm256_loadu_pd(mat1->data + i);
+    __m256d m2_vec = _mm256_loadu_pd(mat2->data + i);
+    __m256d sub_vec = _mm256_sub_pd(m1_vec, m2_vec);
+    _mm256_storeu_pd(result->data + i, sub_vec);
+  }
+
+  for (int i = cnt; i < result->rows * result->cols; i++) {
+    result->data[i] = mat1->data[i] - mat2->data[i];
+  }
+#else
   for (int i = 0; i < result->rows; i++) {
     for (int j = 0; j < result->cols; j++) {
-      set(result, i, j, get(mat2, i, j) - get(mat1, i, j));
+      set(result, i, j, get(mat1, i, j) - get(mat2, i, j));
     }
   }
+#endif
+  return 0;
 }
 
 /*
@@ -272,6 +354,40 @@ int sub_matrix(matrix *result, matrix *mat1, matrix *mat2) {
  */
 int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
   // Task 1.6 TODO
+#if ENABLE_SPEED_UP
+  int cnt = mat1->cols / 4 * 4;
+  // for cache blocking
+  matrix *mat2_tr = NULL;
+  allocate_matrix(&mat2_tr, mat2->cols, mat2->rows);
+
+  for (int i = 0; i < mat2->rows; i++) {
+    for (int j = 0; j < mat2->cols; j++) {
+      set(mat2_tr, j, i, get(mat2, i, j));
+    }
+  }
+  double sums[4];
+#pragma omp parallel for
+
+  for (int i = 0; i < mat1->rows; i++) {
+    for (int j = 0; j < mat2->cols; j++) {
+      double val = 0.0;
+      int x;
+      for (x = 0; x < cnt; x += 4) {
+        __m256d vec1 = _mm256_load_pd(mat1->data + i * mat1->cols + x);
+        __m256d vec2 = _mm256_load_pd(mat2_tr->data + j * mat2_tr->cols + x);
+        __m256d mul_vec = _mm256_mul_pd(vec1, vec2);
+        _mm256_store_pd(sums, mul_vec);
+        val += sums[0] + sums[1] + sums[2] + sums[3];
+      }
+
+      for (; x < mat1->cols; x++) {
+        val += get(mat1, i, x) * get(mat2_tr, j, x);
+      }
+
+      set(result, i, j, val);
+    }
+  }
+#else
   for (int i = 0; i < result->rows; i++) {
     for (int j = 0; j < result->cols; j++) {
       int val = 0;
@@ -281,6 +397,8 @@ int mul_matrix(matrix *result, matrix *mat1, matrix *mat2) {
       set(result, i, j, val);
     }
   }
+#endif
+  return 0;
 }
 
 /*
@@ -296,6 +414,7 @@ int pow_matrix(matrix *result, matrix *mat, int pow) {
     for (int i = 0; i < result->rows; i++) {
       set(result, i, i, 1);
     }
+    return 0;
   }
 
   matrix *zero_matrix = NULL;
